@@ -153,6 +153,8 @@
             this.textBox_TempCh3 = new System.Windows.Forms.TextBox();
             this.label40 = new System.Windows.Forms.Label();
             this.textBox_SetPointCh3 = new System.Windows.Forms.TextBox();
+            this.textBox_test = new System.Windows.Forms.TextBox();
+            this.button_test = new System.Windows.Forms.Button();
             this.groupBox_ComPorts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox_ch0.SuspendLayout();
@@ -630,6 +632,7 @@
             this.textBox_SettleTimeCh1.Name = "textBox_SettleTimeCh1";
             this.textBox_SettleTimeCh1.Size = new System.Drawing.Size(29, 20);
             this.textBox_SettleTimeCh1.TabIndex = 37;
+            this.textBox_SettleTimeCh1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_SettleTimeCh1_KeyDown);
             // 
             // textBox_TempWindowCh1
             // 
@@ -637,6 +640,7 @@
             this.textBox_TempWindowCh1.Name = "textBox_TempWindowCh1";
             this.textBox_TempWindowCh1.Size = new System.Drawing.Size(68, 20);
             this.textBox_TempWindowCh1.TabIndex = 38;
+            this.textBox_TempWindowCh1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_TempWindowCh1_KeyDown);
             // 
             // radioButton_HeatOnOffCh1
             // 
@@ -898,6 +902,7 @@
             this.textBox_SettleTimeCh2.Name = "textBox_SettleTimeCh2";
             this.textBox_SettleTimeCh2.Size = new System.Drawing.Size(29, 20);
             this.textBox_SettleTimeCh2.TabIndex = 43;
+            this.textBox_SettleTimeCh2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_SettleTimeCh2_KeyDown);
             // 
             // textBox_TempWindowCh2
             // 
@@ -905,6 +910,7 @@
             this.textBox_TempWindowCh2.Name = "textBox_TempWindowCh2";
             this.textBox_TempWindowCh2.Size = new System.Drawing.Size(68, 20);
             this.textBox_TempWindowCh2.TabIndex = 44;
+            this.textBox_TempWindowCh2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_TempWindowCh2_KeyDown);
             // 
             // radioButton_HeatOnOffCh2
             // 
@@ -1167,6 +1173,7 @@
             this.textBox_SettleTimeCh3.Name = "textBox_SettleTimeCh3";
             this.textBox_SettleTimeCh3.Size = new System.Drawing.Size(29, 20);
             this.textBox_SettleTimeCh3.TabIndex = 43;
+            this.textBox_SettleTimeCh3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_SettleTimeCh3_KeyDown);
             // 
             // textBox_TempWindowCh3
             // 
@@ -1174,6 +1181,7 @@
             this.textBox_TempWindowCh3.Name = "textBox_TempWindowCh3";
             this.textBox_TempWindowCh3.Size = new System.Drawing.Size(68, 20);
             this.textBox_TempWindowCh3.TabIndex = 44;
+            this.textBox_TempWindowCh3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_TempWindowCh3_KeyDown);
             // 
             // radioButton_HeatOnOffCh3
             // 
@@ -1356,11 +1364,31 @@
             this.textBox_SetPointCh3.TabIndex = 3;
             this.textBox_SetPointCh3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_SetPointCh3_KeyDown);
             // 
+            // textBox_test
+            // 
+            this.textBox_test.Location = new System.Drawing.Point(745, 383);
+            this.textBox_test.Name = "textBox_test";
+            this.textBox_test.Size = new System.Drawing.Size(125, 20);
+            this.textBox_test.TabIndex = 35;
+            // 
+            // button_test
+            // 
+            this.button_test.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_test.Location = new System.Drawing.Point(774, 350);
+            this.button_test.Name = "button_test";
+            this.button_test.Size = new System.Drawing.Size(96, 27);
+            this.button_test.TabIndex = 36;
+            this.button_test.Text = "Test";
+            this.button_test.UseVisualStyleBackColor = true;
+            this.button_test.Click += new System.EventHandler(this.button_test_Click);
+            // 
             // ManiGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(917, 777);
+            this.Controls.Add(this.button_test);
+            this.Controls.Add(this.textBox_test);
             this.Controls.Add(this.groupBox_ch3);
             this.Controls.Add(this.groupBox_ch2);
             this.Controls.Add(this.groupBox_ch1);
@@ -1385,6 +1413,7 @@
             this.groupBox_ch3.ResumeLayout(false);
             this.groupBox_ch3.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1508,6 +1537,8 @@
         private System.Windows.Forms.RadioButton radioButton_tempStableCh3;
         private System.Windows.Forms.TextBox textBox_SettleTimeCh3;
         private System.Windows.Forms.TextBox textBox_TempWindowCh3;
+        private System.Windows.Forms.TextBox textBox_test;
+        private System.Windows.Forms.Button button_test;
     }
 }
 

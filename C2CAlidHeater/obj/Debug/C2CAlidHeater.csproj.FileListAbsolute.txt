@@ -12,7 +12,7 @@ C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Debug\C2CAlidHeater.exe
 C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Debug\C2CAlidHeater.pdb
 C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\bin\Debug\C2CAlidHeater.exe
 C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\bin\Debug\C2CAlidHeater.pdb
-C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Debug\C2CAlidHeater.csprojResolveAssemblyReference.cache
 C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Debug\C2CAlidHeater.ManiGUI.resources
 C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Debug\C2CAlidHeater.Properties.Resources.resources
 C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Debug\C2CAlidHeater.csproj.GenerateResource.Cache
+C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Debug\C2CAlidHeater.csprojResolveAssemblyReference.cache

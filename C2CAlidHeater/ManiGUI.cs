@@ -13,6 +13,7 @@ using System.IO.Ports;
 using System.Diagnostics;
 using System.Reflection;
 using System.Globalization;
+using System.Configuration;
 
 namespace C2CAlidHeater
 {
@@ -38,16 +39,22 @@ namespace C2CAlidHeater
         private bool IgainCh1_editing = false;
         private bool DgainCh1_editing = false;
         private bool TempSensor1_editing = false;
+        private bool TempWindow1_editing = false;
+        private bool SettleTime1_editing = false;
 
         private bool PgainCh2_editing = false;
         private bool IgainCh2_editing = false;
         private bool DgainCh2_editing = false;
         private bool TempSensor2_editing = false;
+        private bool TempWindow2_editing = false;
+        private bool SettleTime2_editing = false;
 
         private bool PgainCh3_editing = false;
         private bool IgainCh3_editing = false;
         private bool DgainCh3_editing = false;
         private bool TempSensor3_editing = false;
+        private bool TempWindow3_editing = false;
+        private bool SettleTime3_editing = false;
 
         private const int writeTimeOut = 200;     // [ms]
 
@@ -79,11 +86,16 @@ namespace C2CAlidHeater
         private const int PgainCh1          = 205;
         private const int IgainCh1          = 206;
         private const int DgainCh1          = 207;
+        private const int TempWindowCh1     = 208;
+        private const int SettleTimeTempCh1 = 209;
+        private const int TempStableCh1     = 210;
         private const int SetTempSetPoint1  = 250;
         private const int SetPgainCh1       = 251;
         private const int SetIgainCh1       = 252;
         private const int SetDgainCh1       = 253;
         private const int SetHeaterOnOffCh1 = 254;
+        private const int SetTempWindowCh1  = 255;
+        private const int SetSettleTimeT1   = 256;
 
         private const int TempSensor2       = 300;
         private const int P_ch2             = 301;
@@ -93,11 +105,16 @@ namespace C2CAlidHeater
         private const int PgainCh2          = 305;
         private const int IgainCh2          = 306;
         private const int DgainCh2          = 307;
+        private const int TempWindowCh2     = 308;
+        private const int SettleTimeTempCh2 = 309;
+        private const int TempStableCh2     = 310;
         private const int SetTempSetPoint2  = 350;
         private const int SetPgainCh2       = 351;
         private const int SetIgainCh2       = 352;
         private const int SetDgainCh2       = 353;
         private const int SetHeaterOnOffCh2 = 354;
+        private const int SetTempWindowCh2  = 355;
+        private const int SetSettleTimeT2   = 356;
 
         private const int TempSensor3       = 400;
         private const int P_ch3             = 401;
@@ -107,20 +124,27 @@ namespace C2CAlidHeater
         private const int PgainCh3          = 405;
         private const int IgainCh3          = 406;
         private const int DgainCh3          = 407;
+        private const int TempWindowCh3     = 408;
+        private const int SettleTimeTempCh3 = 409;
+        private const int TempStableCh3     = 410;
         private const int SetTempSetPoint3  = 450;
         private const int SetPgainCh3       = 451;
         private const int SetIgainCh3       = 452;
         private const int SetDgainCh3       = 453;
         private const int SetHeaterOnOffCh3 = 454;
+        private const int SetTempWindowCh3  = 455;
+        private const int SetSettleTimeT3   = 456;
 
         private const int WrtParamToEEPROM  = 500;
+
+        Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
         public ManiGUI()
         {
             InitializeComponent();
             ShowComPort();
             GetComPorts();
-            ComPortSearch();    // Remove before release
+            //ComPortSearch();    // Remove before release
         }
 
         private void GetComPorts()
@@ -192,7 +216,6 @@ namespace C2CAlidHeater
                 {
                     radioButton_tempStableCh0.Checked = true;
                 }
-
             }
 
             // *** Channel 1 ***
@@ -220,6 +243,31 @@ namespace C2CAlidHeater
                 textBox_DgainCh1.Text = dataRx;
             }
 
+            dataRx = ReadFloat(TempWindowCh1);
+            if (dataRx != null)
+            {
+                textBox_TempWindowCh1.Text = dataRx;
+            }
+
+            dataRx = ReadFloat(SettleTimeTempCh1);
+            if (dataRx != null)
+            {
+                textBox_SettleTimeCh1.Text = dataRx;
+            }
+
+            dataRx = ReadFloat(TempStableCh1);
+            if (dataRx != null)
+            {
+                if (dataRx == "0")
+                {
+                    radioButton_tempStableCh1.Checked = false;
+                }
+                else if (dataRx == "1")
+                {
+                    radioButton_tempStableCh1.Checked = true;
+                }
+            }
+
             // *** Channel 2 ***
             dataRx = ReadFloat(TempSetPoint2);
             if (dataRx != null)
@@ -245,6 +293,31 @@ namespace C2CAlidHeater
                 textBox_DgainCh2.Text = dataRx;
             }
 
+            dataRx = ReadFloat(TempWindowCh2);
+            if (dataRx != null)
+            {
+                textBox_TempWindowCh2.Text = dataRx;
+            }
+
+            dataRx = ReadFloat(SettleTimeTempCh2);
+            if (dataRx != null)
+            {
+                textBox_SettleTimeCh2.Text = dataRx;
+            }
+
+            dataRx = ReadFloat(TempStableCh2);
+            if (dataRx != null)
+            {
+                if (dataRx == "0")
+                {
+                    radioButton_tempStableCh2.Checked = false;
+                }
+                else if (dataRx == "1")
+                {
+                    radioButton_tempStableCh2.Checked = true;
+                }
+            }
+
             // *** Channel 3 ***
             dataRx = ReadFloat(TempSetPoint3);
             if (dataRx != null)
@@ -268,6 +341,31 @@ namespace C2CAlidHeater
             if (dataRx != null)
             {
                 textBox_DgainCh3.Text = dataRx;
+            }
+
+            dataRx = ReadFloat(TempWindowCh3);
+            if (dataRx != null)
+            {
+                textBox_TempWindowCh3.Text = dataRx;
+            }
+
+            dataRx = ReadFloat(SettleTimeTempCh3);
+            if (dataRx != null)
+            {
+                textBox_SettleTimeCh3.Text = dataRx;
+            }
+
+            dataRx = ReadFloat(TempStableCh3);
+            if (dataRx != null)
+            {
+                if (dataRx == "0")
+                {
+                    radioButton_tempStableCh3.Checked = false;
+                }
+                else if (dataRx == "1")
+                {
+                    radioButton_tempStableCh3.Checked = true;
+                }
             }
         }
 
@@ -310,13 +408,13 @@ namespace C2CAlidHeater
                 catch (Exception e)
                 {
                     openSuccess = false;
-                    MessageBox.Show(e.Message + "\n\r" + "Could not open ", portName);
+                    //MessageBox.Show(e.Message + "\n\r" + "Could not open ", portName);
                 }
             }
             return openSuccess;
         }
 
-        void _serialPort1_DataRx(object sender, SerialDataReceivedEventArgs e)
+        private void _serialPort1_DataRx(object sender, SerialDataReceivedEventArgs e)
         {
             //Initialize a buffer to hold the received data 
             byte[] buffer = new byte[serialPort1.ReadBufferSize];
@@ -673,37 +771,67 @@ namespace C2CAlidHeater
 
         private void ComPortSearch()
         {
-            foreach (string comPort in comPort_list)
+            if (configuration.AppSettings.Settings["comPort"].Value.Contains("COM"))
             {
-                if (ConnectToSerialPort("COM25"))//comPort))
+                ConnectToSerialPort(configuration.AppSettings.Settings["comPort"].Value);
+                try
                 {
-                    try
+                    textBox_ComPort.Text = "Try connect to " + configuration.AppSettings.Settings["comPort"].Value;
+                    serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(_serialPort1_DataRx);
+                    serialPort1.Write(CrcAdd("#123?IF"));
+                }
+                catch (Exception e)
+                {
+                    //MessageBox.Show(e.Message);
+                }
+                RxWait(1000);
+                if (rxString.Contains("!123C2CA"))
+                {
+                    textBox_ComPort.Text = "Connected to " + configuration.AppSettings.Settings["comPort"].Value;
+                    rxString = string.Empty;
+
+                    ReadParams();
+                }
+            }
+            else
+            {
+                foreach (string comPort in comPort_list)
+                {
+                    if (ConnectToSerialPort(comPort))
                     {
-                        serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(_serialPort1_DataRx);
-                        serialPort1.Write(CrcAdd("#123?IF"));
-                    }
-                    catch (Exception e)
-                    {
-                        //MessageBox.Show(e.Message);
-                    }
-                    RxWait(1000);
-                    if (rxString.Contains("!123C2CA"))
-                    {
-                        textBox_ComPort.Text = "Connected to " + comPort;
-                        rxString = string.Empty;
-                        ReadParams();
-                        break;
-                    }
-                    else
-                    {
-                        serialPort1.DataReceived -= new System.IO.Ports.SerialDataReceivedEventHandler(_serialPort1_DataRx);
+                        textBox_ComPort.Text = "Try connect to " + comPort;
                         try
                         {
-                            serialPort1.Close();
+                            serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(_serialPort1_DataRx);
+                            serialPort1.Write(CrcAdd("#123?IF"));
                         }
                         catch (Exception e)
                         {
-                            MessageBox.Show(e.Message);
+                            //MessageBox.Show(e.Message);
+                        }
+                        RxWait(1000);
+                        if (rxString.Contains("!123C2CA"))
+                        {
+                            textBox_ComPort.Text = "Connected to " + comPort;
+                            rxString = string.Empty;
+
+                            configuration.AppSettings.Settings["comPort"].Value = comPort;
+                            configuration.Save(ConfigurationSaveMode.Full, true);
+
+                            ReadParams();
+                            break;
+                        }
+                        else
+                        {
+                            serialPort1.DataReceived -= new System.IO.Ports.SerialDataReceivedEventHandler(_serialPort1_DataRx);
+                            try
+                            {
+                                serialPort1.Close();
+                            }
+                            catch (Exception e)
+                            {
+                               // MessageBox.Show(e.Message);
+                            }
                         }
                     }
                 }
@@ -812,6 +940,22 @@ namespace C2CAlidHeater
                     {
                         textBox_Dch1.Text = dataRx;
                     }
+                    seq = 204;
+                    break;
+
+                case 204:
+                    dataRx = ReadFloat(TempStableCh1);
+                    if (dataRx != null)
+                    {
+                        if (dataRx == "0")
+                        {
+                            radioButton_tempStableCh1.Checked = false;
+                        }
+                        else if (dataRx == "1")
+                        {
+                            radioButton_tempStableCh1.Checked = true;
+                        }
+                    }
                     seq = 300;
                     break;
 
@@ -852,6 +996,22 @@ namespace C2CAlidHeater
                     if (dataRx != null)
                     {
                         textBox_Dch2.Text = dataRx;            }
+                    seq = 304;
+                    break;
+
+                case 304:
+                    dataRx = ReadFloat(TempStableCh2);
+                    if (dataRx != null)
+                    {
+                        if (dataRx == "0")
+                        {
+                            radioButton_tempStableCh2.Checked = false;
+                        }
+                        else if (dataRx == "1")
+                        {
+                            radioButton_tempStableCh2.Checked = true;
+                        }
+                    }
                     seq = 400;
                     break;
 
@@ -893,6 +1053,22 @@ namespace C2CAlidHeater
                     {
                         textBox_Dch3.Text = dataRx;
                     }
+                    seq = 404;
+                    break;
+
+                case 404:
+                    dataRx = ReadFloat(TempStableCh3);
+                    if (dataRx != null)
+                    {
+                        if (dataRx == "0")
+                        {
+                            radioButton_tempStableCh3.Checked = false;
+                        }
+                        else if (dataRx == "1")
+                        {
+                            radioButton_tempStableCh3.Checked = true;
+                        }
+                    }
                     seq = 0;
                     break;
             }
@@ -929,10 +1105,10 @@ namespace C2CAlidHeater
             if (int.TryParse(param, out i))
             {
                 i = Math.Abs(i);
-                if(i > 10)
-                {
-                    i = 10;
-                }
+                //if(i > 10)
+                //{
+                //    i = 10;
+                //}
                 s = i.ToString("0");
                 return s;
             }
@@ -1607,6 +1783,105 @@ namespace C2CAlidHeater
             }
         }
 
+        private void textBox_SettleTimeCh1_KeyDown(object sender, KeyEventArgs e)
+        {
+            string dataRx;
+
+            if (e.KeyCode == Keys.Enter)    // Enter key writes data to controller
+            {
+                string param = CheckIntAndRetString(textBox_SettleTimeCh1.Text);
+                if (param != null)
+                {
+                    WriteFloat(param, SetSettleTimeT1);
+                    textBox_SettleTimeCh1.Text = param;
+                    SettleTime1_editing = false;
+                }
+            }
+            else
+            {
+                if (e.KeyCode == Keys.Escape)   // Escape key reads back value from controller
+                {
+                    dataRx = ReadFloat(SettleTimeTempCh1);
+                    if (dataRx != null)
+                    {
+                        textBox_SettleTimeCh1.Text = dataRx;
+                    }
+                    SettleTime1_editing = false;
+                }
+                else if (SettleTime1_editing == false) // Any other key purge the input field
+                {
+                    textBox_SettleTimeCh1.Clear();
+                    SettleTime1_editing = true;
+                }
+            }
+        }
+
+        private void textBox_SettleTimeCh2_KeyDown(object sender, KeyEventArgs e)
+        {
+            string dataRx;
+
+            if (e.KeyCode == Keys.Enter)    // Enter key writes data to controller
+            {
+                string param = CheckIntAndRetString(textBox_SettleTimeCh2.Text);
+                if (param != null)
+                {
+                    WriteFloat(param, SetSettleTimeT2);
+                    textBox_SettleTimeCh2.Text = param;
+                    SettleTime2_editing = false;
+                }
+            }
+            else
+            {
+                if (e.KeyCode == Keys.Escape)   // Escape key reads back value from controller
+                {
+                    dataRx = ReadFloat(SettleTimeTempCh2);
+                    if (dataRx != null)
+                    {
+                        textBox_SettleTimeCh2.Text = dataRx;
+                    }
+                    SettleTime2_editing = false;
+                }
+                else if (SettleTime2_editing == false) // Any other key purge the input field
+                {
+                    textBox_SettleTimeCh2.Clear();
+                    SettleTime2_editing = true;
+                }
+            }
+        }
+
+        private void textBox_SettleTimeCh3_KeyDown(object sender, KeyEventArgs e)
+        {
+            string dataRx;
+
+            if (e.KeyCode == Keys.Enter)    // Enter key writes data to controller
+            {
+                string param = CheckIntAndRetString(textBox_SettleTimeCh3.Text);
+                if (param != null)
+                {
+                    WriteFloat(param, SetSettleTimeT3);
+                    textBox_SettleTimeCh3.Text = param;
+                    SettleTime3_editing = false;
+                }
+            }
+            else
+            {
+                if (e.KeyCode == Keys.Escape)   // Escape key reads back value from controller
+                {
+                    dataRx = ReadFloat(SettleTimeTempCh3);
+                    if (dataRx != null)
+                    {
+                        textBox_SettleTimeCh3.Text = dataRx;
+                    }
+                    SettleTime3_editing = false;
+                }
+                else if (SettleTime3_editing == false) // Any other key purge the input field
+                {
+                    textBox_SettleTimeCh3.Clear();
+                    SettleTime3_editing = true;
+                }
+            }
+        }
+
         private void textBox_TempWindowCh0_KeyDown(object sender, KeyEventArgs e)
         {
             string dataRx;
@@ -1638,6 +1913,113 @@ namespace C2CAlidHeater
                     TempWindow0_editing = true;
                 }
             }
+        }
+
+        private void textBox_TempWindowCh1_KeyDown(object sender, KeyEventArgs e)
+        {
+            string dataRx;
+
+            if (e.KeyCode == Keys.Enter)    // Enter key writes data to controller
+            {
+                string param = CheckFloatAndRetString(textBox_TempWindowCh1.Text);
+                if (param != null)
+                {
+                    WriteFloat(param, SetTempWindowCh1);
+                    textBox_TempWindowCh1.Text = param;
+                    TempWindow1_editing = false;
+                }
+            }
+            else
+            {
+                if (e.KeyCode == Keys.Escape)   // Escape key reads back value from controller
+                {
+                    dataRx = ReadFloat(TempWindowCh1);
+                    if (dataRx != null)
+                    {
+                        textBox_TempWindowCh1.Text = dataRx;
+                    }
+                    TempWindow1_editing = false;
+                }
+                else if (TempWindow1_editing == false) // Any other key purge the input field
+                {
+                    textBox_TempWindowCh1.Clear();
+                    TempWindow1_editing = true;
+                }
+            }
+        }
+
+        private void textBox_TempWindowCh2_KeyDown(object sender, KeyEventArgs e)
+        {
+            string dataRx;
+
+            if (e.KeyCode == Keys.Enter)    // Enter key writes data to controller
+            {
+                string param = CheckFloatAndRetString(textBox_TempWindowCh2.Text);
+                if (param != null)
+                {
+                    WriteFloat(param, SetTempWindowCh2);
+                    textBox_TempWindowCh2.Text = param;
+                    TempWindow2_editing = false;
+                }
+            }
+            else
+            {
+                if (e.KeyCode == Keys.Escape)   // Escape key reads back value from controller
+                {
+                    dataRx = ReadFloat(TempWindowCh2);
+                    if (dataRx != null)
+                    {
+                        textBox_TempWindowCh2.Text = dataRx;
+                    }
+                    TempWindow2_editing = false;
+                }
+                else if (TempWindow2_editing == false) // Any other key purge the input field
+                {
+                    textBox_TempWindowCh2.Clear();
+                    TempWindow2_editing = true;
+                }
+            }
+        }
+
+        private void textBox_TempWindowCh3_KeyDown(object sender, KeyEventArgs e)
+        {
+            string dataRx;
+
+            if (e.KeyCode == Keys.Enter)    // Enter key writes data to controller
+            {
+                string param = CheckFloatAndRetString(textBox_TempWindowCh3.Text);
+                if (param != null)
+                {
+                    WriteFloat(param, SetTempWindowCh3);
+                    textBox_TempWindowCh3.Text = param;
+                    TempWindow3_editing = false;
+                }
+            }
+            else
+            {
+                if (e.KeyCode == Keys.Escape)   // Escape key reads back value from controller
+                {
+                    dataRx = ReadFloat(TempWindowCh3);
+                    if (dataRx != null)
+                    {
+                        textBox_TempWindowCh3.Text = dataRx;
+                    }
+                    TempWindow3_editing = false;
+                }
+                else if (TempWindow3_editing == false) // Any other key purge the input field
+                {
+                    textBox_TempWindowCh3.Clear();
+                    TempWindow3_editing = true;
+                }
+            }
+        }
+
+        private void button_test_Click(object sender, EventArgs e)
+        {
+            configuration.AppSettings.Settings["comPort"].Value = "Test";
+            configuration.Save(ConfigurationSaveMode.Full, true);
+ 
+            textBox_test.Text = configuration.AppSettings.Settings["comPort"].Value;
         }
     }
 }
