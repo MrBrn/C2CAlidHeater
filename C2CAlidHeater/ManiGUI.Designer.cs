@@ -60,7 +60,6 @@
             this.textBox_IgainCh0 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.textBox_DgainCh0 = new System.Windows.Forms.TextBox();
-            this.button_Refresh = new System.Windows.Forms.Button();
             this.button_HeatOnOffCh0 = new System.Windows.Forms.Button();
             this.radioButton_HeatOnOffCh0 = new System.Windows.Forms.RadioButton();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -153,8 +152,6 @@
             this.textBox_TempCh3 = new System.Windows.Forms.TextBox();
             this.label40 = new System.Windows.Forms.Label();
             this.textBox_SetPointCh3 = new System.Windows.Forms.TextBox();
-            this.textBox_test = new System.Windows.Forms.TextBox();
-            this.button_test = new System.Windows.Forms.Button();
             this.groupBox_ComPorts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox_ch0.SuspendLayout();
@@ -175,7 +172,7 @@
             // button_Connect
             // 
             this.button_Connect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Connect.Location = new System.Drawing.Point(16, 173);
+            this.button_Connect.Location = new System.Drawing.Point(665, 737);
             this.button_Connect.Name = "button_Connect";
             this.button_Connect.Size = new System.Drawing.Size(104, 28);
             this.button_Connect.TabIndex = 1;
@@ -185,9 +182,7 @@
             // 
             // groupBox_ComPorts
             // 
-            this.groupBox_ComPorts.Controls.Add(this.textBox_ComPort);
             this.groupBox_ComPorts.Controls.Add(this.listBox_comPorts);
-            this.groupBox_ComPorts.Controls.Add(this.button_Connect);
             this.groupBox_ComPorts.Location = new System.Drawing.Point(751, 12);
             this.groupBox_ComPorts.Name = "groupBox_ComPorts";
             this.groupBox_ComPorts.Size = new System.Drawing.Size(154, 217);
@@ -197,7 +192,8 @@
             // 
             // textBox_ComPort
             // 
-            this.textBox_ComPort.Location = new System.Drawing.Point(16, 147);
+            this.textBox_ComPort.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.textBox_ComPort.Location = new System.Drawing.Point(775, 742);
             this.textBox_ComPort.Name = "textBox_ComPort";
             this.textBox_ComPort.Size = new System.Drawing.Size(132, 20);
             this.textBox_ComPort.TabIndex = 2;
@@ -292,7 +288,7 @@
             // button_SetParam
             // 
             this.button_SetParam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_SetParam.Location = new System.Drawing.Point(656, 432);
+            this.button_SetParam.Location = new System.Drawing.Point(70, 737);
             this.button_SetParam.Name = "button_SetParam";
             this.button_SetParam.Size = new System.Drawing.Size(96, 27);
             this.button_SetParam.TabIndex = 15;
@@ -303,7 +299,7 @@
             // button_Scan
             // 
             this.button_Scan.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Scan.Location = new System.Drawing.Point(767, 248);
+            this.button_Scan.Location = new System.Drawing.Point(219, 737);
             this.button_Scan.Name = "button_Scan";
             this.button_Scan.Size = new System.Drawing.Size(96, 27);
             this.button_Scan.TabIndex = 16;
@@ -389,17 +385,6 @@
             this.textBox_DgainCh0.TabIndex = 24;
             this.textBox_DgainCh0.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_DgainCh0_KeyDown);
             // 
-            // button_Refresh
-            // 
-            this.button_Refresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Refresh.Location = new System.Drawing.Point(767, 302);
-            this.button_Refresh.Name = "button_Refresh";
-            this.button_Refresh.Size = new System.Drawing.Size(96, 27);
-            this.button_Refresh.TabIndex = 26;
-            this.button_Refresh.Text = "Refresh";
-            this.button_Refresh.UseVisualStyleBackColor = true;
-            this.button_Refresh.Click += new System.EventHandler(this.button_Refresh_Click);
-            // 
             // button_HeatOnOffCh0
             // 
             this.button_HeatOnOffCh0.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -427,7 +412,7 @@
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(1, 465);
+            this.chart1.Location = new System.Drawing.Point(4, 407);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -449,18 +434,18 @@
             this.chart1.Series.Add(series2);
             this.chart1.Series.Add(series3);
             this.chart1.Series.Add(series4);
-            this.chart1.Size = new System.Drawing.Size(914, 312);
+            this.chart1.Size = new System.Drawing.Size(914, 324);
             this.chart1.TabIndex = 29;
             this.chart1.Text = "chart1";
             // 
             // button_ClrChart
             // 
             this.button_ClrChart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_ClrChart.Location = new System.Drawing.Point(767, 432);
+            this.button_ClrChart.Location = new System.Drawing.Point(340, 737);
             this.button_ClrChart.Name = "button_ClrChart";
             this.button_ClrChart.Size = new System.Drawing.Size(96, 27);
             this.button_ClrChart.TabIndex = 30;
-            this.button_ClrChart.Text = "Clr Chart";
+            this.button_ClrChart.Text = "Clear Chart";
             this.button_ClrChart.UseVisualStyleBackColor = true;
             this.button_ClrChart.Click += new System.EventHandler(this.button_ClrChart_Click);
             // 
@@ -492,6 +477,7 @@
             this.groupBox_ch0.Controls.Add(this.textBox_TempCh0);
             this.groupBox_ch0.Controls.Add(this.label1);
             this.groupBox_ch0.Controls.Add(this.textBox_SetPointCh0);
+            this.groupBox_ch0.Enabled = false;
             this.groupBox_ch0.Location = new System.Drawing.Point(4, 9);
             this.groupBox_ch0.Name = "groupBox_ch0";
             this.groupBox_ch0.Size = new System.Drawing.Size(171, 392);
@@ -581,6 +567,7 @@
             this.groupBox_ch1.Controls.Add(this.textBox_TempCh1);
             this.groupBox_ch1.Controls.Add(this.label20);
             this.groupBox_ch1.Controls.Add(this.textBox_SetPointCh1);
+            this.groupBox_ch1.Enabled = false;
             this.groupBox_ch1.Location = new System.Drawing.Point(181, 9);
             this.groupBox_ch1.Name = "groupBox_ch1";
             this.groupBox_ch1.Size = new System.Drawing.Size(171, 392);
@@ -851,6 +838,7 @@
             this.groupBox_ch2.Controls.Add(this.textBox_TempCh2);
             this.groupBox_ch2.Controls.Add(this.label30);
             this.groupBox_ch2.Controls.Add(this.textBox_SetPointCh2);
+            this.groupBox_ch2.Enabled = false;
             this.groupBox_ch2.Location = new System.Drawing.Point(358, 9);
             this.groupBox_ch2.Name = "groupBox_ch2";
             this.groupBox_ch2.Size = new System.Drawing.Size(171, 392);
@@ -1122,6 +1110,7 @@
             this.groupBox_ch3.Controls.Add(this.textBox_TempCh3);
             this.groupBox_ch3.Controls.Add(this.label40);
             this.groupBox_ch3.Controls.Add(this.textBox_SetPointCh3);
+            this.groupBox_ch3.Enabled = false;
             this.groupBox_ch3.Location = new System.Drawing.Point(535, 9);
             this.groupBox_ch3.Name = "groupBox_ch3";
             this.groupBox_ch3.Size = new System.Drawing.Size(171, 392);
@@ -1364,45 +1353,25 @@
             this.textBox_SetPointCh3.TabIndex = 3;
             this.textBox_SetPointCh3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_SetPointCh3_KeyDown);
             // 
-            // textBox_test
-            // 
-            this.textBox_test.Location = new System.Drawing.Point(745, 383);
-            this.textBox_test.Name = "textBox_test";
-            this.textBox_test.Size = new System.Drawing.Size(125, 20);
-            this.textBox_test.TabIndex = 35;
-            // 
-            // button_test
-            // 
-            this.button_test.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_test.Location = new System.Drawing.Point(774, 350);
-            this.button_test.Name = "button_test";
-            this.button_test.Size = new System.Drawing.Size(96, 27);
-            this.button_test.TabIndex = 36;
-            this.button_test.Text = "Test";
-            this.button_test.UseVisualStyleBackColor = true;
-            this.button_test.Click += new System.EventHandler(this.button_test_Click);
-            // 
             // ManiGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(917, 777);
-            this.Controls.Add(this.button_test);
-            this.Controls.Add(this.textBox_test);
+            this.Controls.Add(this.textBox_ComPort);
             this.Controls.Add(this.groupBox_ch3);
             this.Controls.Add(this.groupBox_ch2);
+            this.Controls.Add(this.button_Connect);
             this.Controls.Add(this.groupBox_ch1);
             this.Controls.Add(this.groupBox_ch0);
             this.Controls.Add(this.button_ClrChart);
             this.Controls.Add(this.chart1);
-            this.Controls.Add(this.button_Refresh);
             this.Controls.Add(this.button_Scan);
             this.Controls.Add(this.button_SetParam);
             this.Controls.Add(this.groupBox_ComPorts);
             this.Name = "ManiGUI";
             this.Text = "C2CA Cap Heater";
             this.groupBox_ComPorts.ResumeLayout(false);
-            this.groupBox_ComPorts.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.groupBox_ch0.ResumeLayout(false);
             this.groupBox_ch0.PerformLayout();
@@ -1444,7 +1413,6 @@
         private System.Windows.Forms.TextBox textBox_IgainCh0;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBox_DgainCh0;
-        private System.Windows.Forms.Button button_Refresh;
         private System.Windows.Forms.Button button_HeatOnOffCh0;
         private System.Windows.Forms.RadioButton radioButton_HeatOnOffCh0;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
@@ -1537,8 +1505,6 @@
         private System.Windows.Forms.RadioButton radioButton_tempStableCh3;
         private System.Windows.Forms.TextBox textBox_SettleTimeCh3;
         private System.Windows.Forms.TextBox textBox_TempWindowCh3;
-        private System.Windows.Forms.TextBox textBox_test;
-        private System.Windows.Forms.Button button_test;
     }
 }
 

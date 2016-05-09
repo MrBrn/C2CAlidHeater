@@ -769,14 +769,13 @@ namespace C2CAlidHeater
             timeSpan.Stop();
         }
 
-        private void ComPortSearch()
+        private bool ComPortSearch()
         {
             if (configuration.AppSettings.Settings["comPort"].Value.Contains("COM"))
             {
                 ConnectToSerialPort(configuration.AppSettings.Settings["comPort"].Value);
                 try
                 {
-                    textBox_ComPort.Text = "Try connect to " + configuration.AppSettings.Settings["comPort"].Value;
                     serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(_serialPort1_DataRx);
                     serialPort1.Write(CrcAdd("#123?IF"));
                 }
@@ -789,17 +788,23 @@ namespace C2CAlidHeater
                 {
                     textBox_ComPort.Text = "Connected to " + configuration.AppSettings.Settings["comPort"].Value;
                     rxString = string.Empty;
-
+                    
+                    groupBox_ch0.Enabled = true;
+                    groupBox_ch1.Enabled = true;
+                    groupBox_ch2.Enabled = true;
+                    groupBox_ch3.Enabled = true;
                     ReadParams();
                 }
             }
-            else
+            if(!groupBox_ch0.Enabled)
             {
                 foreach (string comPort in comPort_list)
                 {
+                    textBox_ComPort.Text = "Tying connect to " + comPort;
+                    textBox_ComPort.Refresh();
+
                     if (ConnectToSerialPort(comPort))
                     {
-                        textBox_ComPort.Text = "Try connect to " + comPort;
                         try
                         {
                             serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(_serialPort1_DataRx);
@@ -818,6 +823,10 @@ namespace C2CAlidHeater
                             configuration.AppSettings.Settings["comPort"].Value = comPort;
                             configuration.Save(ConfigurationSaveMode.Full, true);
 
+                            groupBox_ch0.Enabled = true;
+                            groupBox_ch1.Enabled = true;
+                            groupBox_ch2.Enabled = true;
+                            groupBox_ch3.Enabled = true;
                             ReadParams();
                             break;
                         }
@@ -830,12 +839,17 @@ namespace C2CAlidHeater
                             }
                             catch (Exception e)
                             {
-                               // MessageBox.Show(e.Message);
+                                // MessageBox.Show(e.Message);
                             }
                         }
                     }
                 }
             }
+            if(groupBox_ch0.Enabled == false)
+            {
+                textBox_ComPort.Text = "Not connected";
+            }
+            return true;
         }
 
         private void timer_Scan_Tick(object sender, EventArgs e)
@@ -1125,17 +1139,13 @@ namespace C2CAlidHeater
 
         private void button_Connect_Click(object sender, EventArgs e)
         {
+            textBox_ComPort.Text = "Trying to connect";
             ComPortSearch();
         }
 
         private void button_SetParam_Click(object sender, EventArgs e)
         {
             WriteParamToEEPROM(WrtParamToEEPROM);
-        }
-
-        private void button_Refresh_Click(object sender, EventArgs e)
-        {
-            ReadParams();
         }
 
         private void button_HeatOnOffCh0_Click(object sender, EventArgs e)
@@ -2014,12 +2024,5 @@ namespace C2CAlidHeater
             }
         }
 
-        private void button_test_Click(object sender, EventArgs e)
-        {
-            configuration.AppSettings.Settings["comPort"].Value = "Test";
-            configuration.Save(ConfigurationSaveMode.Full, true);
- 
-            textBox_test.Text = configuration.AppSettings.Settings["comPort"].Value;
-        }
     }
 }
