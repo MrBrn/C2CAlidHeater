@@ -35,9 +35,8 @@
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.listBox_comPorts = new System.Windows.Forms.ListBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManiGUI));
             this.button_Connect = new System.Windows.Forms.Button();
-            this.groupBox_ComPorts = new System.Windows.Forms.GroupBox();
             this.textBox_ComPort = new System.Windows.Forms.TextBox();
             this.textBox_SetPointCh0 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -152,7 +151,15 @@
             this.textBox_TempCh3 = new System.Windows.Forms.TextBox();
             this.label40 = new System.Windows.Forms.Label();
             this.textBox_SetPointCh3 = new System.Windows.Forms.TextBox();
-            this.groupBox_ComPorts.SuspendLayout();
+            this.textBox_MotorDeltaStep = new System.Windows.Forms.TextBox();
+            this.button_MotorDeltaACW = new System.Windows.Forms.Button();
+            this.button_MotorDeltaCW = new System.Windows.Forms.Button();
+            this.textBox_MotorPos = new System.Windows.Forms.TextBox();
+            this.label53 = new System.Windows.Forms.Label();
+            this.textBox_SetSpeed = new System.Windows.Forms.TextBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.button_HomeCW = new System.Windows.Forms.Button();
+            this.button_HomeCCW = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox_ch0.SuspendLayout();
             this.groupBox_ch1.SuspendLayout();
@@ -160,17 +167,9 @@
             this.groupBox_ch3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // listBox_comPorts
-            // 
-            this.listBox_comPorts.FormattingEnabled = true;
-            this.listBox_comPorts.Location = new System.Drawing.Point(16, 46);
-            this.listBox_comPorts.Name = "listBox_comPorts";
-            this.listBox_comPorts.Size = new System.Drawing.Size(132, 95);
-            this.listBox_comPorts.TabIndex = 0;
-            this.listBox_comPorts.SelectedIndexChanged += new System.EventHandler(this.listBox_comPorts_SelectedIndexChanged);
-            // 
             // button_Connect
             // 
+            this.button_Connect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Connect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Connect.Location = new System.Drawing.Point(665, 737);
             this.button_Connect.Name = "button_Connect";
@@ -180,18 +179,9 @@
             this.button_Connect.UseVisualStyleBackColor = true;
             this.button_Connect.Click += new System.EventHandler(this.button_Connect_Click);
             // 
-            // groupBox_ComPorts
-            // 
-            this.groupBox_ComPorts.Controls.Add(this.listBox_comPorts);
-            this.groupBox_ComPorts.Location = new System.Drawing.Point(751, 12);
-            this.groupBox_ComPorts.Name = "groupBox_ComPorts";
-            this.groupBox_ComPorts.Size = new System.Drawing.Size(154, 217);
-            this.groupBox_ComPorts.TabIndex = 2;
-            this.groupBox_ComPorts.TabStop = false;
-            this.groupBox_ComPorts.Text = "Com Ports";
-            // 
             // textBox_ComPort
             // 
+            this.textBox_ComPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_ComPort.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textBox_ComPort.Location = new System.Drawing.Point(775, 742);
             this.textBox_ComPort.Name = "textBox_ComPort";
@@ -287,8 +277,10 @@
             // 
             // button_SetParam
             // 
+            this.button_SetParam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_SetParam.Enabled = false;
             this.button_SetParam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_SetParam.Location = new System.Drawing.Point(70, 737);
+            this.button_SetParam.Location = new System.Drawing.Point(4, 738);
             this.button_SetParam.Name = "button_SetParam";
             this.button_SetParam.Size = new System.Drawing.Size(96, 27);
             this.button_SetParam.TabIndex = 15;
@@ -298,8 +290,10 @@
             // 
             // button_Scan
             // 
+            this.button_Scan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_Scan.Enabled = false;
             this.button_Scan.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Scan.Location = new System.Drawing.Point(219, 737);
+            this.button_Scan.Location = new System.Drawing.Point(433, 738);
             this.button_Scan.Name = "button_Scan";
             this.button_Scan.Size = new System.Drawing.Size(96, 27);
             this.button_Scan.TabIndex = 16;
@@ -408,6 +402,9 @@
             // 
             // chart1
             // 
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -440,8 +437,10 @@
             // 
             // button_ClrChart
             // 
+            this.button_ClrChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_ClrChart.Enabled = false;
             this.button_ClrChart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_ClrChart.Location = new System.Drawing.Point(340, 737);
+            this.button_ClrChart.Location = new System.Drawing.Point(535, 738);
             this.button_ClrChart.Name = "button_ClrChart";
             this.button_ClrChart.Size = new System.Drawing.Size(96, 27);
             this.button_ClrChart.TabIndex = 30;
@@ -1353,11 +1352,102 @@
             this.textBox_SetPointCh3.TabIndex = 3;
             this.textBox_SetPointCh3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_SetPointCh3_KeyDown);
             // 
+            // textBox_MotorDeltaStep
+            // 
+            this.textBox_MotorDeltaStep.Location = new System.Drawing.Point(778, 52);
+            this.textBox_MotorDeltaStep.Name = "textBox_MotorDeltaStep";
+            this.textBox_MotorDeltaStep.Size = new System.Drawing.Size(52, 20);
+            this.textBox_MotorDeltaStep.TabIndex = 35;
+            // 
+            // button_MotorDeltaACW
+            // 
+            this.button_MotorDeltaACW.Location = new System.Drawing.Point(733, 50);
+            this.button_MotorDeltaACW.Name = "button_MotorDeltaACW";
+            this.button_MotorDeltaACW.Size = new System.Drawing.Size(39, 23);
+            this.button_MotorDeltaACW.TabIndex = 36;
+            this.button_MotorDeltaACW.Text = "<";
+            this.button_MotorDeltaACW.UseVisualStyleBackColor = true;
+            this.button_MotorDeltaACW.Click += new System.EventHandler(this.button_MotorDeltaACW_Click);
+            // 
+            // button_MotorDeltaCW
+            // 
+            this.button_MotorDeltaCW.Location = new System.Drawing.Point(836, 50);
+            this.button_MotorDeltaCW.Name = "button_MotorDeltaCW";
+            this.button_MotorDeltaCW.Size = new System.Drawing.Size(39, 23);
+            this.button_MotorDeltaCW.TabIndex = 37;
+            this.button_MotorDeltaCW.Text = ">";
+            this.button_MotorDeltaCW.UseVisualStyleBackColor = true;
+            this.button_MotorDeltaCW.Click += new System.EventHandler(this.button_MotorDeltaCW_Click);
+            // 
+            // textBox_MotorPos
+            // 
+            this.textBox_MotorPos.Location = new System.Drawing.Point(778, 24);
+            this.textBox_MotorPos.Name = "textBox_MotorPos";
+            this.textBox_MotorPos.Size = new System.Drawing.Size(87, 20);
+            this.textBox_MotorPos.TabIndex = 38;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label53.Location = new System.Drawing.Point(744, 27);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(35, 16);
+            this.label53.TabIndex = 39;
+            this.label53.Text = "Pos:";
+            // 
+            // textBox_SetSpeed
+            // 
+            this.textBox_SetSpeed.Location = new System.Drawing.Point(778, 78);
+            this.textBox_SetSpeed.Name = "textBox_SetSpeed";
+            this.textBox_SetSpeed.Size = new System.Drawing.Size(52, 20);
+            this.textBox_SetSpeed.TabIndex = 35;
+            this.textBox_SetSpeed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_SetSpeed_KeyDown);
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label54.Location = new System.Drawing.Point(727, 82);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(52, 16);
+            this.label54.TabIndex = 39;
+            this.label54.Text = "Speed:";
+            // 
+            // button_HomeCW
+            // 
+            this.button_HomeCW.Location = new System.Drawing.Point(836, 143);
+            this.button_HomeCW.Name = "button_HomeCW";
+            this.button_HomeCW.Size = new System.Drawing.Size(39, 23);
+            this.button_HomeCW.TabIndex = 40;
+            this.button_HomeCW.Text = ">";
+            this.button_HomeCW.UseVisualStyleBackColor = true;
+            this.button_HomeCW.Click += new System.EventHandler(this.button_HomeCW_Click);
+            // 
+            // button_HomeCCW
+            // 
+            this.button_HomeCCW.Location = new System.Drawing.Point(733, 143);
+            this.button_HomeCCW.Name = "button_HomeCCW";
+            this.button_HomeCCW.Size = new System.Drawing.Size(39, 23);
+            this.button_HomeCCW.TabIndex = 41;
+            this.button_HomeCCW.Text = "<";
+            this.button_HomeCCW.UseVisualStyleBackColor = true;
+            this.button_HomeCCW.Click += new System.EventHandler(this.button_HomeCCW_Click);
+            // 
             // ManiGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(917, 777);
+            this.Controls.Add(this.button_HomeCCW);
+            this.Controls.Add(this.button_HomeCW);
+            this.Controls.Add(this.label54);
+            this.Controls.Add(this.label53);
+            this.Controls.Add(this.textBox_MotorPos);
+            this.Controls.Add(this.button_MotorDeltaCW);
+            this.Controls.Add(this.button_MotorDeltaACW);
+            this.Controls.Add(this.textBox_SetSpeed);
+            this.Controls.Add(this.textBox_MotorDeltaStep);
             this.Controls.Add(this.textBox_ComPort);
             this.Controls.Add(this.groupBox_ch3);
             this.Controls.Add(this.groupBox_ch2);
@@ -1368,10 +1458,10 @@
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.button_Scan);
             this.Controls.Add(this.button_SetParam);
-            this.Controls.Add(this.groupBox_ComPorts);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(933, 813);
             this.Name = "ManiGUI";
             this.Text = "C2CA Cap Heater";
-            this.groupBox_ComPorts.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.groupBox_ch0.ResumeLayout(false);
             this.groupBox_ch0.PerformLayout();
@@ -1388,9 +1478,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox_comPorts;
         private System.Windows.Forms.Button button_Connect;
-        private System.Windows.Forms.GroupBox groupBox_ComPorts;
         private System.Windows.Forms.TextBox textBox_SetPointCh0;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -1505,6 +1593,15 @@
         private System.Windows.Forms.RadioButton radioButton_tempStableCh3;
         private System.Windows.Forms.TextBox textBox_SettleTimeCh3;
         private System.Windows.Forms.TextBox textBox_TempWindowCh3;
+        private System.Windows.Forms.TextBox textBox_MotorDeltaStep;
+        private System.Windows.Forms.Button button_MotorDeltaACW;
+        private System.Windows.Forms.Button button_MotorDeltaCW;
+        private System.Windows.Forms.TextBox textBox_MotorPos;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.TextBox textBox_SetSpeed;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.Button button_HomeCW;
+        private System.Windows.Forms.Button button_HomeCCW;
     }
 }
 

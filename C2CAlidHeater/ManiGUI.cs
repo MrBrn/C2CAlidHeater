@@ -55,6 +55,7 @@ namespace C2CAlidHeater
         private bool TempSensor3_editing = false;
         private bool TempWindow3_editing = false;
         private bool SettleTime3_editing = false;
+        private bool SetMotorSpeed_editing = false;
 
         private const int writeTimeOut = 200;     // [ms]
 
@@ -137,12 +138,19 @@ namespace C2CAlidHeater
 
         private const int WrtParamToEEPROM  = 500;
 
+        private const int ReadMotHomeSwitch = 600;
+        private const int ReadMotorPos      = 601;
+
+        private const int MotorHoming       = 600;
+        private const int SetMotorSpeed     = 601;
+        private const int SetMotorDeltaMove = 602;
+        private const int ReadMotorSpeed    = 602;
+
         Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
         public ManiGUI()
         {
             InitializeComponent();
-            ShowComPort();
             GetComPorts();
             //ComPortSearch();    // Remove before release
         }
@@ -152,15 +160,6 @@ namespace C2CAlidHeater
             foreach (string s in SerialPort.GetPortNames())
             {
                 comPort_list.Add(s);
-            }
-        }
-
-        private void ShowComPort()
-        {
-            //show list of valid com ports
-            foreach (string s in SerialPort.GetPortNames())
-            {
-                listBox_comPorts.Items.Add(s);
             }
         }
 
@@ -434,11 +433,6 @@ namespace C2CAlidHeater
 
         }
 
-        private void listBox_comPorts_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComPort = listBox_comPorts.SelectedItem.ToString();
-        }
-
         private string CrcAdd(string dataTX)
         {
             string tx = string.Empty;
@@ -573,7 +567,7 @@ namespace C2CAlidHeater
             return output_string;
         }
 
-        private bool WriteFloat(string d_string, int id)
+        private bool SendData(string d_string, int id)
         {
             bool return_val = false;
             uint seqNo_return = 0;
@@ -769,6 +763,19 @@ namespace C2CAlidHeater
             timeSpan.Stop();
         }
 
+        private void EnableGUI()
+        {
+            groupBox_ch0.Enabled = true;
+            groupBox_ch1.Enabled = true;
+            groupBox_ch2.Enabled = true;
+            groupBox_ch3.Enabled = true;
+            button_ClrChart.Enabled = true;
+            button_Scan.Enabled = true;
+            button_SetParam.Enabled = true;
+            ReadParams();
+            button_Connect.Enabled = false;
+        }
+
         private bool ComPortSearch()
         {
             if (configuration.AppSettings.Settings["comPort"].Value.Contains("COM"))
@@ -788,19 +795,14 @@ namespace C2CAlidHeater
                 {
                     textBox_ComPort.Text = "Connected to " + configuration.AppSettings.Settings["comPort"].Value;
                     rxString = string.Empty;
-                    
-                    groupBox_ch0.Enabled = true;
-                    groupBox_ch1.Enabled = true;
-                    groupBox_ch2.Enabled = true;
-                    groupBox_ch3.Enabled = true;
-                    ReadParams();
+                    EnableGUI();
                 }
             }
             if(!groupBox_ch0.Enabled)
             {
                 foreach (string comPort in comPort_list)
                 {
-                    textBox_ComPort.Text = "Tying connect to " + comPort;
+                    textBox_ComPort.Text = "Trying connect to " + comPort;
                     textBox_ComPort.Refresh();
 
                     if (ConnectToSerialPort(comPort))
@@ -822,12 +824,7 @@ namespace C2CAlidHeater
 
                             configuration.AppSettings.Settings["comPort"].Value = comPort;
                             configuration.Save(ConfigurationSaveMode.Full, true);
-
-                            groupBox_ch0.Enabled = true;
-                            groupBox_ch1.Enabled = true;
-                            groupBox_ch2.Enabled = true;
-                            groupBox_ch3.Enabled = true;
-                            ReadParams();
+                            EnableGUI();                            
                             break;
                         }
                         else
@@ -1083,6 +1080,16 @@ namespace C2CAlidHeater
                             radioButton_tempStableCh3.Checked = true;
                         }
                     }
+                    seq = 600;
+                    break;
+
+                // *** Step motor ***
+                case 600:
+                    dataRx = ReadFloat(ReadMotorPos);
+                    if (dataRx != null)
+                    {
+                        textBox_MotorPos.Text = dataRx;
+                    }
                     seq = 0;
                     break;
             }
@@ -1119,10 +1126,21 @@ namespace C2CAlidHeater
             if (int.TryParse(param, out i))
             {
                 i = Math.Abs(i);
-                //if(i > 10)
-                //{
-                //    i = 10;
-                //}
+                s = i.ToString("0");
+                return s;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private string CheckLongAndRetString(string param)
+        {
+            int i;
+            string s;
+            if (int.TryParse(param, out i))
+            {
                 s = i.ToString("0");
                 return s;
             }
@@ -1183,7 +1201,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_SetPointCh0.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetTempSetPoint0);
+                    SendData(param, SetTempSetPoint0);
                     textBox_SetPointCh0.Text = param;
                     TempSensor0_editing = false;
                 }
@@ -1216,7 +1234,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_PgainCh0.Text);
                 if(param != null)
                 {
-                    WriteFloat(param, SetPgainCh0);
+                    SendData(param, SetPgainCh0);
                     textBox_PgainCh0.Text = param;
                     PgainCh0_editing = false;
                 }
@@ -1249,7 +1267,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_IgainCh0.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetIgainCh0);
+                    SendData(param, SetIgainCh0);
                     textBox_IgainCh0.Text = param;
                     IgainCh0_editing = false;
                 }
@@ -1282,7 +1300,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_DgainCh0.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetDgainCh0);
+                    SendData(param, SetDgainCh0);
                     textBox_DgainCh0.Text = param;
                     DgainCh0_editing = false;
                 }
@@ -1315,7 +1333,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_SetPointCh1.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetTempSetPoint1);
+                    SendData(param, SetTempSetPoint1);
                     textBox_SetPointCh1.Text = param;
                     TempSensor1_editing = false;
                 }
@@ -1348,7 +1366,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_PgainCh1.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetPgainCh1);
+                    SendData(param, SetPgainCh1);
                     textBox_PgainCh1.Text = param;
                     PgainCh1_editing = false;
                 }
@@ -1381,7 +1399,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_IgainCh1.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetIgainCh1);
+                    SendData(param, SetIgainCh1);
                     textBox_IgainCh1.Text = param;
                     IgainCh1_editing = false;
                 }
@@ -1414,7 +1432,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_DgainCh1.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetDgainCh1);
+                    SendData(param, SetDgainCh1);
                     textBox_DgainCh1.Text = param;
                     DgainCh1_editing = false;
                 }
@@ -1447,7 +1465,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_SetPointCh2.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetTempSetPoint2);
+                    SendData(param, SetTempSetPoint2);
                     textBox_SetPointCh2.Text = param;
                     TempSensor2_editing = false;
                 }
@@ -1480,7 +1498,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_PgainCh2.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetPgainCh2);
+                    SendData(param, SetPgainCh2);
                     textBox_PgainCh2.Text = param;
                     PgainCh2_editing = false;
                 }
@@ -1514,7 +1532,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_IgainCh2.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetIgainCh2);
+                    SendData(param, SetIgainCh2);
                     textBox_IgainCh2.Text = param;
                     IgainCh2_editing = false;
                 }
@@ -1547,7 +1565,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_DgainCh2.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetDgainCh2);
+                    SendData(param, SetDgainCh2);
                     textBox_DgainCh2.Text = param;
                     DgainCh2_editing = false;
                 }
@@ -1580,7 +1598,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_SetPointCh3.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetTempSetPoint3);
+                    SendData(param, SetTempSetPoint3);
                     textBox_SetPointCh3.Text = param;
                     TempSensor3_editing = false;
                 }
@@ -1613,7 +1631,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_PgainCh3.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetPgainCh3);
+                    SendData(param, SetPgainCh3);
                     textBox_PgainCh3.Text = param;
                     PgainCh3_editing = false;
                 }
@@ -1646,7 +1664,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_IgainCh3.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetIgainCh3);
+                    SendData(param, SetIgainCh3);
                     textBox_IgainCh3.Text = param;
                     IgainCh3_editing = false;
                 }
@@ -1679,7 +1697,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_DgainCh3.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetDgainCh3);
+                    SendData(param, SetDgainCh3);
                     textBox_DgainCh3.Text = param;
                     DgainCh3_editing = false;
                 }
@@ -1769,7 +1787,7 @@ namespace C2CAlidHeater
                 string param = CheckIntAndRetString(textBox_SettleTimeCh0.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetSettleTimeT0);
+                    SendData(param, SetSettleTimeT0);
                     textBox_SettleTimeCh0.Text = param;
                     SettleTime0_editing = false;
                 }
@@ -1802,7 +1820,7 @@ namespace C2CAlidHeater
                 string param = CheckIntAndRetString(textBox_SettleTimeCh1.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetSettleTimeT1);
+                    SendData(param, SetSettleTimeT1);
                     textBox_SettleTimeCh1.Text = param;
                     SettleTime1_editing = false;
                 }
@@ -1835,7 +1853,7 @@ namespace C2CAlidHeater
                 string param = CheckIntAndRetString(textBox_SettleTimeCh2.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetSettleTimeT2);
+                    SendData(param, SetSettleTimeT2);
                     textBox_SettleTimeCh2.Text = param;
                     SettleTime2_editing = false;
                 }
@@ -1868,7 +1886,7 @@ namespace C2CAlidHeater
                 string param = CheckIntAndRetString(textBox_SettleTimeCh3.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetSettleTimeT3);
+                    SendData(param, SetSettleTimeT3);
                     textBox_SettleTimeCh3.Text = param;
                     SettleTime3_editing = false;
                 }
@@ -1901,7 +1919,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_TempWindowCh0.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetTempWindowCh0);
+                    SendData(param, SetTempWindowCh0);
                     textBox_TempWindowCh0.Text = param;
                     TempWindow0_editing = false;
                 }
@@ -1934,7 +1952,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_TempWindowCh1.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetTempWindowCh1);
+                    SendData(param, SetTempWindowCh1);
                     textBox_TempWindowCh1.Text = param;
                     TempWindow1_editing = false;
                 }
@@ -1967,7 +1985,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_TempWindowCh2.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetTempWindowCh2);
+                    SendData(param, SetTempWindowCh2);
                     textBox_TempWindowCh2.Text = param;
                     TempWindow2_editing = false;
                 }
@@ -2000,7 +2018,7 @@ namespace C2CAlidHeater
                 string param = CheckFloatAndRetString(textBox_TempWindowCh3.Text);
                 if (param != null)
                 {
-                    WriteFloat(param, SetTempWindowCh3);
+                    SendData(param, SetTempWindowCh3);
                     textBox_TempWindowCh3.Text = param;
                     TempWindow3_editing = false;
                 }
@@ -2024,5 +2042,67 @@ namespace C2CAlidHeater
             }
         }
 
+        private void button_MotorDeltaCW_Click(object sender, EventArgs e)
+        {
+            string param = CheckLongAndRetString(textBox_MotorDeltaStep.Text);
+            if (param != null)
+            {
+                SendData(param, SetMotorDeltaMove);
+                textBox_MotorDeltaStep.Text = param;
+            }
+        }
+
+        private void button_MotorDeltaACW_Click(object sender, EventArgs e)
+        {
+            string param = CheckLongAndRetString(textBox_MotorDeltaStep.Text);
+            if (param != null)
+            {
+                SendData("-" + param, SetMotorDeltaMove);
+                textBox_MotorDeltaStep.Text = param;
+            }
+        }
+
+        private void textBox_SetSpeed_KeyDown(object sender, KeyEventArgs e)
+        {
+            string dataRx;
+
+            if (e.KeyCode == Keys.Enter)    // Enter key writes data to controller
+            {
+                string param = CheckIntAndRetString(textBox_SetSpeed.Text);
+                if (param != null)
+                {
+                    SendData(param, SetMotorSpeed);
+                    textBox_SetSpeed.Text = param;
+                    SetMotorSpeed_editing = false;
+                }
+            }
+            else
+            {
+                if (e.KeyCode == Keys.Escape)   // Escape key reads back value from controller
+                {
+                    dataRx = ReadFloat(ReadMotorSpeed);
+                    if (dataRx != null)
+                    {
+                        textBox_SetSpeed.Text = dataRx;
+                    }
+                    SetMotorSpeed_editing = false;
+                }
+                else if (SetMotorSpeed_editing == false) // Any other key purge the input field
+                {
+                    textBox_SetSpeed.Clear();
+                    SetMotorSpeed_editing = true;
+                }
+            }
+        }
+
+        private void button_HomeCW_Click(object sender, EventArgs e)
+        {
+            SendData("CW", MotorHoming);
+        }
+
+        private void button_HomeCCW_Click(object sender, EventArgs e)
+        {
+            SendData("CCW", MotorHoming);
+        }
     }
 }
