@@ -141,10 +141,11 @@ namespace C2CAlidHeater
         private const int ReadMotHomeSwitch = 600;
         private const int ReadMotorPos      = 601;
 
-        private const int MotorHoming       = 600;
+        private const int GoToHome       = 600;
         private const int SetMotorSpeed     = 601;
         private const int SetMotorDeltaMove = 602;
         private const int ReadMotorSpeed    = 602;
+        private const int SetMotorAbsMove   = 603;
 
         Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
@@ -772,8 +773,10 @@ namespace C2CAlidHeater
             button_ClrChart.Enabled = true;
             button_Scan.Enabled = true;
             button_SetParam.Enabled = true;
+            groupBox_Motor.Enabled = true;
             ReadParams();
             button_Connect.Enabled = false;
+            textBox_MotorDeltaStep.Focus();
         }
 
         private bool ComPortSearch()
@@ -1089,6 +1092,26 @@ namespace C2CAlidHeater
                     if (dataRx != null)
                     {
                         textBox_MotorPos.Text = dataRx;
+                        //if (uint.TryParse(dataRx, NumberStyles.Any, CultureInfo.GetCultureInfo("en-US"), out i))
+                        //{
+                        //    chart1.Series["Pos"].Points.AddY(i);
+                        //}
+                    }
+                    seq = 601;
+                    break;
+
+                case 601:
+                    dataRx = ReadFloat(ReadMotHomeSwitch);
+                    if(dataRx != null)
+                    {
+                        if (dataRx == "0")
+                        {
+                            radioButton_HomeSwitch.Checked = false;
+                        }
+                        else if (dataRx == "1")
+                        {
+                            radioButton_HomeSwitch.Checked = true;
+                        }
                     }
                     seq = 0;
                     break;
@@ -2097,12 +2120,22 @@ namespace C2CAlidHeater
 
         private void button_HomeCW_Click(object sender, EventArgs e)
         {
-            SendData("CW", MotorHoming);
+            SendData("CW", GoToHome);
         }
 
         private void button_HomeCCW_Click(object sender, EventArgs e)
         {
-            SendData("CCW", MotorHoming);
+            SendData("CCW", GoToHome);
         }
-    }
+
+        private void button_AbsMove_Click(object sender, EventArgs e)
+        {
+            string param = CheckLongAndRetString(textBox_MotorAbsStep.Text);
+            if (param != null)
+            {
+                SendData(param, SetMotorAbsMove);
+                textBox_MotorAbsStep.Text = param;
+            }
+        }
+     }
 }

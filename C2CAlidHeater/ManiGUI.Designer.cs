@@ -160,11 +160,19 @@
             this.label54 = new System.Windows.Forms.Label();
             this.button_HomeCW = new System.Windows.Forms.Button();
             this.button_HomeCCW = new System.Windows.Forms.Button();
+            this.textBox_MotorAbsStep = new System.Windows.Forms.TextBox();
+            this.button_AbsMove = new System.Windows.Forms.Button();
+            this.label55 = new System.Windows.Forms.Label();
+            this.radioButton_HomeSwitch = new System.Windows.Forms.RadioButton();
+            this.label56 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
+            this.groupBox_Motor = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox_ch0.SuspendLayout();
             this.groupBox_ch1.SuspendLayout();
             this.groupBox_ch2.SuspendLayout();
             this.groupBox_ch3.SuspendLayout();
+            this.groupBox_Motor.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_Connect
@@ -187,6 +195,7 @@
             this.textBox_ComPort.Name = "textBox_ComPort";
             this.textBox_ComPort.Size = new System.Drawing.Size(132, 20);
             this.textBox_ComPort.TabIndex = 2;
+            this.textBox_ComPort.Text = "Not connected";
             // 
             // textBox_SetPointCh0
             // 
@@ -221,6 +230,7 @@
             // 
             this.textBox_TempCh0.Location = new System.Drawing.Point(70, 58);
             this.textBox_TempCh0.Name = "textBox_TempCh0";
+            this.textBox_TempCh0.ReadOnly = true;
             this.textBox_TempCh0.Size = new System.Drawing.Size(68, 20);
             this.textBox_TempCh0.TabIndex = 5;
             // 
@@ -238,6 +248,7 @@
             // 
             this.textBox_Pch0.Location = new System.Drawing.Point(70, 98);
             this.textBox_Pch0.Name = "textBox_Pch0";
+            this.textBox_Pch0.ReadOnly = true;
             this.textBox_Pch0.Size = new System.Drawing.Size(68, 20);
             this.textBox_Pch0.TabIndex = 7;
             // 
@@ -255,6 +266,7 @@
             // 
             this.textBox_Ich0.Location = new System.Drawing.Point(70, 124);
             this.textBox_Ich0.Name = "textBox_Ich0";
+            this.textBox_Ich0.ReadOnly = true;
             this.textBox_Ich0.Size = new System.Drawing.Size(68, 20);
             this.textBox_Ich0.TabIndex = 9;
             // 
@@ -272,6 +284,7 @@
             // 
             this.textBox_Dch0.Location = new System.Drawing.Point(70, 150);
             this.textBox_Dch0.Name = "textBox_Dch0";
+            this.textBox_Dch0.ReadOnly = true;
             this.textBox_Dch0.Size = new System.Drawing.Size(68, 20);
             this.textBox_Dch0.TabIndex = 11;
             // 
@@ -303,7 +316,7 @@
             // 
             // timer_Scan
             // 
-            this.timer_Scan.Interval = 50;
+            this.timer_Scan.Interval = 45;
             this.timer_Scan.Tick += new System.EventHandler(this.timer_Scan_Tick);
             // 
             // label7
@@ -405,6 +418,11 @@
             this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea1.AxisX.Title = "sec";
+            chartArea1.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea1.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea1.AxisY.Title = "°C";
+            chartArea1.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -736,6 +754,7 @@
             // 
             this.textBox_Dch1.Location = new System.Drawing.Point(70, 150);
             this.textBox_Dch1.Name = "textBox_Dch1";
+            this.textBox_Dch1.ReadOnly = true;
             this.textBox_Dch1.Size = new System.Drawing.Size(68, 20);
             this.textBox_Dch1.TabIndex = 11;
             // 
@@ -753,6 +772,7 @@
             // 
             this.textBox_Ich1.Location = new System.Drawing.Point(70, 124);
             this.textBox_Ich1.Name = "textBox_Ich1";
+            this.textBox_Ich1.ReadOnly = true;
             this.textBox_Ich1.Size = new System.Drawing.Size(68, 20);
             this.textBox_Ich1.TabIndex = 9;
             // 
@@ -770,6 +790,7 @@
             // 
             this.textBox_Pch1.Location = new System.Drawing.Point(70, 98);
             this.textBox_Pch1.Name = "textBox_Pch1";
+            this.textBox_Pch1.ReadOnly = true;
             this.textBox_Pch1.Size = new System.Drawing.Size(68, 20);
             this.textBox_Pch1.TabIndex = 7;
             // 
@@ -787,6 +808,7 @@
             // 
             this.textBox_TempCh1.Location = new System.Drawing.Point(70, 58);
             this.textBox_TempCh1.Name = "textBox_TempCh1";
+            this.textBox_TempCh1.ReadOnly = true;
             this.textBox_TempCh1.Size = new System.Drawing.Size(68, 20);
             this.textBox_TempCh1.TabIndex = 5;
             // 
@@ -1007,6 +1029,7 @@
             // 
             this.textBox_Dch2.Location = new System.Drawing.Point(70, 150);
             this.textBox_Dch2.Name = "textBox_Dch2";
+            this.textBox_Dch2.ReadOnly = true;
             this.textBox_Dch2.Size = new System.Drawing.Size(68, 20);
             this.textBox_Dch2.TabIndex = 11;
             // 
@@ -1024,6 +1047,7 @@
             // 
             this.textBox_Ich2.Location = new System.Drawing.Point(70, 124);
             this.textBox_Ich2.Name = "textBox_Ich2";
+            this.textBox_Ich2.ReadOnly = true;
             this.textBox_Ich2.Size = new System.Drawing.Size(68, 20);
             this.textBox_Ich2.TabIndex = 9;
             // 
@@ -1041,6 +1065,7 @@
             // 
             this.textBox_Pch2.Location = new System.Drawing.Point(70, 98);
             this.textBox_Pch2.Name = "textBox_Pch2";
+            this.textBox_Pch2.ReadOnly = true;
             this.textBox_Pch2.Size = new System.Drawing.Size(68, 20);
             this.textBox_Pch2.TabIndex = 7;
             // 
@@ -1058,6 +1083,7 @@
             // 
             this.textBox_TempCh2.Location = new System.Drawing.Point(70, 58);
             this.textBox_TempCh2.Name = "textBox_TempCh2";
+            this.textBox_TempCh2.ReadOnly = true;
             this.textBox_TempCh2.Size = new System.Drawing.Size(68, 20);
             this.textBox_TempCh2.TabIndex = 5;
             // 
@@ -1279,6 +1305,7 @@
             // 
             this.textBox_Dch3.Location = new System.Drawing.Point(70, 150);
             this.textBox_Dch3.Name = "textBox_Dch3";
+            this.textBox_Dch3.ReadOnly = true;
             this.textBox_Dch3.Size = new System.Drawing.Size(68, 20);
             this.textBox_Dch3.TabIndex = 11;
             // 
@@ -1296,6 +1323,7 @@
             // 
             this.textBox_Ich3.Location = new System.Drawing.Point(70, 124);
             this.textBox_Ich3.Name = "textBox_Ich3";
+            this.textBox_Ich3.ReadOnly = true;
             this.textBox_Ich3.Size = new System.Drawing.Size(68, 20);
             this.textBox_Ich3.TabIndex = 9;
             // 
@@ -1313,6 +1341,7 @@
             // 
             this.textBox_Pch3.Location = new System.Drawing.Point(70, 98);
             this.textBox_Pch3.Name = "textBox_Pch3";
+            this.textBox_Pch3.ReadOnly = true;
             this.textBox_Pch3.Size = new System.Drawing.Size(68, 20);
             this.textBox_Pch3.TabIndex = 7;
             // 
@@ -1330,6 +1359,7 @@
             // 
             this.textBox_TempCh3.Location = new System.Drawing.Point(70, 58);
             this.textBox_TempCh3.Name = "textBox_TempCh3";
+            this.textBox_TempCh3.ReadOnly = true;
             this.textBox_TempCh3.Size = new System.Drawing.Size(68, 20);
             this.textBox_TempCh3.TabIndex = 5;
             // 
@@ -1354,53 +1384,54 @@
             // 
             // textBox_MotorDeltaStep
             // 
-            this.textBox_MotorDeltaStep.Location = new System.Drawing.Point(778, 52);
+            this.textBox_MotorDeltaStep.Location = new System.Drawing.Point(54, 123);
             this.textBox_MotorDeltaStep.Name = "textBox_MotorDeltaStep";
-            this.textBox_MotorDeltaStep.Size = new System.Drawing.Size(52, 20);
+            this.textBox_MotorDeltaStep.Size = new System.Drawing.Size(65, 20);
             this.textBox_MotorDeltaStep.TabIndex = 35;
             // 
             // button_MotorDeltaACW
             // 
-            this.button_MotorDeltaACW.Location = new System.Drawing.Point(733, 50);
+            this.button_MotorDeltaACW.Location = new System.Drawing.Point(9, 121);
             this.button_MotorDeltaACW.Name = "button_MotorDeltaACW";
             this.button_MotorDeltaACW.Size = new System.Drawing.Size(39, 23);
-            this.button_MotorDeltaACW.TabIndex = 36;
+            this.button_MotorDeltaACW.TabIndex = 37;
             this.button_MotorDeltaACW.Text = "<";
             this.button_MotorDeltaACW.UseVisualStyleBackColor = true;
             this.button_MotorDeltaACW.Click += new System.EventHandler(this.button_MotorDeltaACW_Click);
             // 
             // button_MotorDeltaCW
             // 
-            this.button_MotorDeltaCW.Location = new System.Drawing.Point(836, 50);
+            this.button_MotorDeltaCW.Location = new System.Drawing.Point(128, 121);
             this.button_MotorDeltaCW.Name = "button_MotorDeltaCW";
             this.button_MotorDeltaCW.Size = new System.Drawing.Size(39, 23);
-            this.button_MotorDeltaCW.TabIndex = 37;
+            this.button_MotorDeltaCW.TabIndex = 36;
             this.button_MotorDeltaCW.Text = ">";
             this.button_MotorDeltaCW.UseVisualStyleBackColor = true;
             this.button_MotorDeltaCW.Click += new System.EventHandler(this.button_MotorDeltaCW_Click);
             // 
             // textBox_MotorPos
             // 
-            this.textBox_MotorPos.Location = new System.Drawing.Point(778, 24);
+            this.textBox_MotorPos.Location = new System.Drawing.Point(54, 59);
             this.textBox_MotorPos.Name = "textBox_MotorPos";
-            this.textBox_MotorPos.Size = new System.Drawing.Size(87, 20);
+            this.textBox_MotorPos.ReadOnly = true;
+            this.textBox_MotorPos.Size = new System.Drawing.Size(65, 20);
             this.textBox_MotorPos.TabIndex = 38;
             // 
             // label53
             // 
             this.label53.AutoSize = true;
             this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label53.Location = new System.Drawing.Point(744, 27);
+            this.label53.Location = new System.Drawing.Point(51, 40);
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(35, 16);
+            this.label53.Size = new System.Drawing.Size(56, 16);
             this.label53.TabIndex = 39;
-            this.label53.Text = "Pos:";
+            this.label53.Text = "Position";
             // 
             // textBox_SetSpeed
             // 
-            this.textBox_SetSpeed.Location = new System.Drawing.Point(778, 78);
+            this.textBox_SetSpeed.Location = new System.Drawing.Point(54, 158);
             this.textBox_SetSpeed.Name = "textBox_SetSpeed";
-            this.textBox_SetSpeed.Size = new System.Drawing.Size(52, 20);
+            this.textBox_SetSpeed.Size = new System.Drawing.Size(65, 20);
             this.textBox_SetSpeed.TabIndex = 35;
             this.textBox_SetSpeed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_SetSpeed_KeyDown);
             // 
@@ -1408,7 +1439,7 @@
             // 
             this.label54.AutoSize = true;
             this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label54.Location = new System.Drawing.Point(727, 82);
+            this.label54.Location = new System.Drawing.Point(3, 162);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(52, 16);
             this.label54.TabIndex = 39;
@@ -1416,7 +1447,7 @@
             // 
             // button_HomeCW
             // 
-            this.button_HomeCW.Location = new System.Drawing.Point(836, 143);
+            this.button_HomeCW.Location = new System.Drawing.Point(100, 229);
             this.button_HomeCW.Name = "button_HomeCW";
             this.button_HomeCW.Size = new System.Drawing.Size(39, 23);
             this.button_HomeCW.TabIndex = 40;
@@ -1426,7 +1457,7 @@
             // 
             // button_HomeCCW
             // 
-            this.button_HomeCCW.Location = new System.Drawing.Point(733, 143);
+            this.button_HomeCCW.Location = new System.Drawing.Point(16, 229);
             this.button_HomeCCW.Name = "button_HomeCCW";
             this.button_HomeCCW.Size = new System.Drawing.Size(39, 23);
             this.button_HomeCCW.TabIndex = 41;
@@ -1434,20 +1465,94 @@
             this.button_HomeCCW.UseVisualStyleBackColor = true;
             this.button_HomeCCW.Click += new System.EventHandler(this.button_HomeCCW_Click);
             // 
+            // textBox_MotorAbsStep
+            // 
+            this.textBox_MotorAbsStep.Location = new System.Drawing.Point(54, 90);
+            this.textBox_MotorAbsStep.Name = "textBox_MotorAbsStep";
+            this.textBox_MotorAbsStep.Size = new System.Drawing.Size(65, 20);
+            this.textBox_MotorAbsStep.TabIndex = 42;
+            // 
+            // button_AbsMove
+            // 
+            this.button_AbsMove.Location = new System.Drawing.Point(128, 88);
+            this.button_AbsMove.Name = "button_AbsMove";
+            this.button_AbsMove.Size = new System.Drawing.Size(39, 23);
+            this.button_AbsMove.TabIndex = 43;
+            this.button_AbsMove.Text = "Abs";
+            this.button_AbsMove.UseVisualStyleBackColor = true;
+            this.button_AbsMove.Click += new System.EventHandler(this.button_AbsMove_Click);
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label55.Location = new System.Drawing.Point(51, 210);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(55, 16);
+            this.label55.TabIndex = 49;
+            this.label55.Text = "Homing";
+            // 
+            // radioButton_HomeSwitch
+            // 
+            this.radioButton_HomeSwitch.AutoCheck = false;
+            this.radioButton_HomeSwitch.AutoSize = true;
+            this.radioButton_HomeSwitch.Location = new System.Drawing.Point(16, 268);
+            this.radioButton_HomeSwitch.Name = "radioButton_HomeSwitch";
+            this.radioButton_HomeSwitch.Size = new System.Drawing.Size(14, 13);
+            this.radioButton_HomeSwitch.TabIndex = 49;
+            this.radioButton_HomeSwitch.UseVisualStyleBackColor = true;
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label56.Location = new System.Drawing.Point(125, 60);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(51, 16);
+            this.label56.TabIndex = 39;
+            this.label56.Text = "[uStep]";
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label57.Location = new System.Drawing.Point(36, 266);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(46, 16);
+            this.label57.TabIndex = 49;
+            this.label57.Text = "Switch";
+            // 
+            // groupBox_Motor
+            // 
+            this.groupBox_Motor.Controls.Add(this.radioButton_HomeSwitch);
+            this.groupBox_Motor.Controls.Add(this.label57);
+            this.groupBox_Motor.Controls.Add(this.label55);
+            this.groupBox_Motor.Controls.Add(this.button_AbsMove);
+            this.groupBox_Motor.Controls.Add(this.textBox_MotorAbsStep);
+            this.groupBox_Motor.Controls.Add(this.button_HomeCCW);
+            this.groupBox_Motor.Controls.Add(this.button_HomeCW);
+            this.groupBox_Motor.Controls.Add(this.label54);
+            this.groupBox_Motor.Controls.Add(this.label56);
+            this.groupBox_Motor.Controls.Add(this.label53);
+            this.groupBox_Motor.Controls.Add(this.textBox_MotorPos);
+            this.groupBox_Motor.Controls.Add(this.button_MotorDeltaCW);
+            this.groupBox_Motor.Controls.Add(this.button_MotorDeltaACW);
+            this.groupBox_Motor.Controls.Add(this.textBox_SetSpeed);
+            this.groupBox_Motor.Controls.Add(this.textBox_MotorDeltaStep);
+            this.groupBox_Motor.Enabled = false;
+            this.groupBox_Motor.Location = new System.Drawing.Point(721, 9);
+            this.groupBox_Motor.Name = "groupBox_Motor";
+            this.groupBox_Motor.Size = new System.Drawing.Size(185, 391);
+            this.groupBox_Motor.TabIndex = 50;
+            this.groupBox_Motor.TabStop = false;
+            this.groupBox_Motor.Text = "Motor";
+            // 
             // ManiGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(917, 777);
-            this.Controls.Add(this.button_HomeCCW);
-            this.Controls.Add(this.button_HomeCW);
-            this.Controls.Add(this.label54);
-            this.Controls.Add(this.label53);
-            this.Controls.Add(this.textBox_MotorPos);
-            this.Controls.Add(this.button_MotorDeltaCW);
-            this.Controls.Add(this.button_MotorDeltaACW);
-            this.Controls.Add(this.textBox_SetSpeed);
-            this.Controls.Add(this.textBox_MotorDeltaStep);
+            this.Controls.Add(this.groupBox_Motor);
             this.Controls.Add(this.textBox_ComPort);
             this.Controls.Add(this.groupBox_ch3);
             this.Controls.Add(this.groupBox_ch2);
@@ -1471,6 +1576,8 @@
             this.groupBox_ch2.PerformLayout();
             this.groupBox_ch3.ResumeLayout(false);
             this.groupBox_ch3.PerformLayout();
+            this.groupBox_Motor.ResumeLayout(false);
+            this.groupBox_Motor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1602,6 +1709,13 @@
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.Button button_HomeCW;
         private System.Windows.Forms.Button button_HomeCCW;
+        private System.Windows.Forms.TextBox textBox_MotorAbsStep;
+        private System.Windows.Forms.Button button_AbsMove;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.RadioButton radioButton_HomeSwitch;
+        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.GroupBox groupBox_Motor;
     }
 }
 

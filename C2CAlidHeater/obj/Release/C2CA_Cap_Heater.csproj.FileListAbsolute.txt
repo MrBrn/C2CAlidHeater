@@ -1,0 +1,8 @@
+C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\bin\Release\C2CA_Cap_Heater.exe.config
+C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\bin\Release\C2CA_Cap_Heater.exe
+C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\bin\Release\C2CA_Cap_Heater.pdb
+C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Release\C2CAlidHeater.ManiGUI.resources
+C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Release\C2CA_Cap_Heater.Properties.Resources.resources
+C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Release\C2CA_Cap_Heater.csproj.GenerateResource.Cache
+C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Release\C2CA_Cap_Heater.exe
+C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Release\C2CA_Cap_Heater.pdb

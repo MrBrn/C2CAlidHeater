@@ -6,3 +6,4 @@ C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Release\C2CAlidHeater.Properti
 C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Release\C2CAlidHeater.csproj.GenerateResource.Cache
 C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Release\C2CAlidHeater.exe
 C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Release\C2CAlidHeater.pdb
+C:\Af\Qlinea\C2CA\C2CAlidHeater\C2CAlidHeater\obj\Release\C2CAlidHeater.csprojResolveAssemblyReference.cache

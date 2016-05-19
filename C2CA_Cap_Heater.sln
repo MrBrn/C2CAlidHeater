@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C2CAlidHeater", "C2CAlidHeater\C2CAlidHeater.csproj", "{DD2A825A-C50E-44DD-BE4F-F96DE2DAE50D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C2CA_Cap_Heater", "C2CAlidHeater\C2CA_Cap_Heater.csproj", "{DD2A825A-C50E-44DD-BE4F-F96DE2DAE50D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
